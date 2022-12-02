@@ -30,6 +30,8 @@
 #  - HIVE_FORK_MUIRGLACIER        block number for Muir Glacier transition
 #  - HIVE_FORK_BERLIN             block number for Berlin transition
 #  - HIVE_FORK_LONDON             block number for London
+#  - HIVE_FORK_SHANGHAI           block number for Shanghai
+#  - HIVE_FORK_SHARDING           block number for Protodanksharding
 #
 # Clique PoA:
 #

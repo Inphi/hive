@@ -13,3 +13,5 @@ require (
 	github.com/syndtr/goleveldb v1.0.1-0.20220614013038-64ee5596c38a // indirect
 	github.com/tyler-smith/go-bip39 v1.0.2 // indirect
 )
+
+replace github.com/ethereum/go-ethereum => github.com/mdehoog/go-ethereum v1.10.19-0.20221123060657-389ad0ad03d4

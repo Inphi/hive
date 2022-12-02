@@ -11,8 +11,9 @@ import (
 
 var (
 	// parameters used for signing transactions
-	chainID  = big.NewInt(7)
-	gasPrice = big.NewInt(30 * params.GWei)
+	chainID   = big.NewInt(7)
+	gasPrice  = big.NewInt(30 * params.GWei)
+	gasTipCap = big.NewInt(30 * params.GWei)
 
 	// would be nice to use a networkID that's different from chainID,
 	// but some clients don't support the distinction properly.
@@ -26,6 +27,16 @@ var clientEnv = hivesim.Params{
 	"HIVE_FORK_HOMESTEAD": "0",
 	"HIVE_FORK_TANGERINE": "0",
 	"HIVE_FORK_SPURIOUS":  "0",
+
+	"HIVE_FORK_BYZANTIUM":      "0",
+	"HIVE_FORK_CONSTANTINOPLE": "0",
+	"HIVE_FORK_PETERSBURG":     "0",
+	"HIVE_FORK_ISTANBUL":       "0",
+	"HIVE_FORK_MIUR_GLACIER":   "0",
+	"HIVE_FORK_BERLIN":         "0",
+	"HIVE_FORK_LONDON":         "0",
+	"HIVE_FORK_SHANGHAI":       "0",
+	"HIVE_FORK_SHARDING":       "0",
 
 	// All tests use clique PoA to mine new blocks.
 	"HIVE_CLIQUE_PERIOD":     "1",
@@ -60,6 +71,7 @@ var tests = []testSpec{
 	{Name: "http/TransactionCount", Run: transactionCountTest},
 	{Name: "http/TransactionInBlock", Run: transactionInBlockTest},
 	{Name: "http/TransactionReceipt", Run: TransactionReceiptTest},
+	{Name: "http/BlobTransactionTest", Run: blobTransactionTest},
 
 	// HTTP ABI tests.
 	{Name: "http/ABICall", Run: callContractTest},

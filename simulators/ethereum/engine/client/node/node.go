@@ -19,6 +19,7 @@ import (
 	"github.com/ethereum/go-ethereum/core/beacon"
 	"github.com/ethereum/go-ethereum/core/rawdb"
 	"github.com/ethereum/go-ethereum/core/state"
+	"github.com/ethereum/go-ethereum/core/txpool"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/core/vm"
 	"github.com/ethereum/go-ethereum/eth"
@@ -237,7 +238,7 @@ func restart(startConfig GethNodeTestConfiguration, bootnodes []string, datadir 
 		SyncMode:         downloader.FullSync,
 		DatabaseCache:    256,
 		DatabaseHandles:  256,
-		TxPool:           core.DefaultTxPoolConfig,
+		TxPool:           txpool.DefaultConfig,
 		GPO:              ethconfig.Defaults.GPO,
 		Ethash:           ethconfig.Defaults.Ethash,
 		Miner:            ethconfig.Defaults.Miner,
@@ -608,7 +609,7 @@ func (v *validator) ValidateState(block *types.Block, state *state.StateDB, rece
 
 type processor struct{}
 
-func (p *processor) Process(block *types.Block, statedb *state.StateDB, cfg vm.Config) (types.Receipts, []*types.Log, uint64, error) {
+func (p *processor) Process(block *types.Block, excessDataGas *big.Int, statedb *state.StateDB, cfg vm.Config) (types.Receipts, []*types.Log, uint64, error) {
 	return types.Receipts{}, []*types.Log{}, 21000, nil
 }
 
@@ -648,7 +649,7 @@ func (n *GethNode) SetBlock(block *types.Block, parentNumber uint64, parentRoot 
 	}
 	statedb.StartPrefetcher("chain")
 	var failedProcessing bool
-	receipts, _, _, err := n.eth.BlockChain().Processor().Process(block, statedb, *n.eth.BlockChain().GetVMConfig())
+	receipts, _, _, err := n.eth.BlockChain().Processor().Process(block, nil /* excessDataGas */, statedb, *n.eth.BlockChain().GetVMConfig())
 	if err != nil {
 		failedProcessing = true
 	}
