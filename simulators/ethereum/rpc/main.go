@@ -72,6 +72,7 @@ var tests = []testSpec{
 	{Name: "http/TransactionInBlock", Run: transactionInBlockTest},
 	{Name: "http/TransactionReceipt", Run: TransactionReceiptTest},
 	{Name: "http/BlobTransactionTest", Run: blobTransactionTest},
+	{Name: "http/FeeMarketTest", Run: feeMarketTest},
 
 	// HTTP ABI tests.
 	{Name: "http/ABICall", Run: callContractTest},
